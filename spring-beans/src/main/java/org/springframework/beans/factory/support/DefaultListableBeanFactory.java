@@ -349,7 +349,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	@Override
 	public <T> T getBean(Class<T> requiredType, @Nullable Object... args) throws BeansException {
 		Assert.notNull(requiredType, "Required type must not be null");
-		Object resolved = resolveBean(ResolvableType.forRawClass(requiredType), args, false);
+		Object resolved = resolveBean(ResolvableType.forRawClass(requiredType), args, false); // 解析Bean
 		if (resolved == null) {
 			throw new NoSuchBeanDefinitionException(requiredType);
 		}
@@ -1219,7 +1219,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			ResolvableType requiredType, @Nullable Object[] args, boolean nonUniqueAsNull) throws BeansException {
 
 		Assert.notNull(requiredType, "Required type must not be null");
-		String[] candidateNames = getBeanNamesForType(requiredType);
+		String[] candidateNames = getBeanNamesForType(requiredType); //候选名称
 
 		if (candidateNames.length > 1) {
 			List<String> autowireCandidates = new ArrayList<>(candidateNames.length);
@@ -1272,7 +1272,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	@Nullable
 	private <T> NamedBeanHolder<T> resolveNamedBean(
 			String beanName, ResolvableType requiredType, @Nullable Object[] args) throws BeansException {
-
+		// 获取Bean
 		Object bean = getBean(beanName, null, args);
 		if (bean instanceof NullBean) {
 			return null;
